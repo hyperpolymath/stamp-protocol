@@ -127,12 +127,48 @@
         </div>
     </section>
 
-    <!-- Demo Section -->
+    <!-- Interactive Demo Section -->
     <section class="demo">
         <div class="container">
             <h2>Try It Now</h2>
+
+            <!-- Live Browser Demo -->
+            <div class="demo-box interactive-demo">
+                <h3>🔬 Live Verification Demo</h3>
+                <p>Test STAMP verification right in your browser:</p>
+
+                <div class="demo-controls">
+                    <div class="demo-control-group">
+                        <h4>Test Unsubscribe Link</h4>
+                        <input
+                            type="text"
+                            id="unsub-url"
+                            value="https://example.com/unsubscribe?token=abc123"
+                            placeholder="Enter unsubscribe URL"
+                            class="demo-input"
+                        />
+                        <button id="test-unsub-btn" class="btn btn-primary">
+                            Verify Link
+                        </button>
+                    </div>
+
+                    <div class="demo-control-group">
+                        <h4>Test Consent Chain</h4>
+                        <p class="demo-description">Verify that confirmation happened AFTER initial request (time-ordering proof)</p>
+                        <button id="test-consent-btn" class="btn btn-primary">
+                            Verify Consent
+                        </button>
+                    </div>
+                </div>
+
+                <div id="demo-output" class="demo-output">
+                    <p class="demo-placeholder">👆 Click a button above to see verification in action</p>
+                </div>
+            </div>
+
+            <!-- Telegram Bot Demo -->
             <div class="demo-box">
-                <h3>Telegram Bot Demo</h3>
+                <h3>📱 Telegram Bot Demo</h3>
                 <p>See STAMP in action with our live Telegram bot:</p>
                 <ol>
                     <li>Open Telegram and search for <strong>@stamp_demo_bot</strong></li>
@@ -208,6 +244,7 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script type="module" src="src/Website.res.js"></script>
+    <script type="module" src="src/StampDemo.res.js"></script>
 </body>
 </html>

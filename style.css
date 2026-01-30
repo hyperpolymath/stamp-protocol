@@ -250,8 +250,8 @@ body {
 }
 
 .demo-box {
-    max-width: 700px;
-    margin: 0 auto;
+    max-width: 800px;
+    margin: 0 auto 3rem;
     background: var(--surface);
     padding: 3rem;
     border-radius: 1rem;
@@ -283,6 +283,136 @@ body {
 
 .demo-box .btn {
     margin-top: 2rem;
+}
+
+/* Interactive Demo */
+.interactive-demo {
+    max-width: 900px;
+}
+
+.demo-controls {
+    display: grid;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.demo-control-group h4 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: var(--primary);
+}
+
+.demo-description {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+.demo-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--border);
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-family: 'Monaco', 'Courier New', monospace;
+    margin-bottom: 1rem;
+}
+
+.demo-input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.demo-output {
+    min-height: 200px;
+    background: white;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    border: 2px solid var(--border);
+    margin-top: 2rem;
+}
+
+.demo-placeholder {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+}
+
+.demo-loading {
+    text-align: center;
+    font-size: 1.25rem;
+    padding: 2rem;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.demo-result {
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.demo-result h4 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.demo-result.success h4 {
+    color: var(--success);
+}
+
+.demo-result.error h4 {
+    color: #ef4444;
+}
+
+.demo-details {
+    background: var(--surface);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.demo-details p {
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+}
+
+.demo-details strong {
+    color: var(--text);
+}
+
+.demo-proof {
+    background: var(--code-bg);
+    color: var(--code-text);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+}
+
+.demo-proof strong {
+    display: block;
+    margin-bottom: 0.75rem;
+    color: #fbbf24;
+}
+
+.demo-proof code {
+    background: transparent;
+    padding: 0;
+    display: block;
+    line-height: 1.8;
+    font-size: 0.95rem;
 }
 
 /* Use Cases */
