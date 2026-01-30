@@ -1,0 +1,15 @@
+# Casket-SSG Configuration for STAMP Protocol
+# Site metadata
+title: STAMP Protocol
+url: https://stamp-protocol.org
+author: Jonathan D.A. Jewell
+
+# Build settings
+input: content
+output: _site
+
+# Language & i18n
+language: en
+
+# Features
+spell_check: false  # Technical content with acronyms
