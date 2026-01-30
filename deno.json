@@ -1,0 +1,10 @@
+{
+  "tasks": {
+    "build": "rescript build",
+    "clean": "rescript clean",
+    "watch": "rescript build -w"
+  },
+  "imports": {
+    "rescript": "npm:rescript@^11.0.0"
+  }
+}

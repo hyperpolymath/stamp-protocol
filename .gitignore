@@ -3,3 +3,7 @@ node_modules/
 .env
 *.log
 .wrangler/
+
+# ReScript build artifacts
+lib/
+*.res.js
