@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-01T18:51:25.029Z",
+  "generated_at": "2026-02-01T18:56:01.875Z",
   "urls": [
     {
       "input": "https://example.com/unsubscribe?token=abc123",
@@ -16,6 +16,24 @@
       "parse_ok": false,
       "https": false,
       "error": "Invalid URL: Invalid URL: 'not-a-url'"
+    }
+  ],
+  "consent": [
+    {
+      "id": "consent-ok",
+      "initial_request": "2026-02-01T12:00:00Z",
+      "confirmation": "2026-02-01T12:00:30Z",
+      "token": "user_123_consent_token_abc",
+      "valid": true,
+      "reason": "confirmation after request, token length >= 10"
+    },
+    {
+      "id": "consent-invalid",
+      "initial_request": "2026-02-01T12:00:30Z",
+      "confirmation": "2026-02-01T12:00:10Z",
+      "token": "short",
+      "valid": false,
+      "reason": "confirmation before request or token too short"
     }
   ]
 }

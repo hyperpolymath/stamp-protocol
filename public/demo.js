@@ -38,6 +38,13 @@ function lookupProof(url) {
   return proofData.urls.find((entry) => entry.input === url) || null;
 }
 
+function lookupConsentProof() {
+  if (!proofData || !proofData.consent || proofData.consent.length === 0) {
+    return null;
+  }
+  return proofData.consent[0];
+}
+
 function verifyUnsubscribeLink(url) {
   const proof = lookupProof(url);
   if (proof) {
@@ -95,6 +102,27 @@ function testConsentChain() {
   const outputEl = document.getElementById("demo-output");
   outputEl.innerHTML = "<div class='demo-loading'>🔍 Verifying consent ordering...</div>";
   setTimeout(() => {
+    const proof = lookupConsentProof();
+    if (proof) {
+      const result = proof.valid ? "Success" : "ErrorInvalidConsent";
+      const resultClass = resultToClass(result);
+      const resultText = resultToString(result);
+      const html = `
+        <div class="demo-result ${resultClass}">
+          <h4>${resultText}</h4>
+          <div class="demo-details">
+            <p><strong>Initial Request:</strong> ${proof.initial_request}</p>
+            <p><strong>Confirmation:</strong> ${proof.confirmation}</p>
+            <p><strong>Token:</strong> ${proof.token}</p>
+            <p><strong>Check:</strong> confirmation > initialRequest</p>
+            <p><strong>Source:</strong> proven (build-time)</p>
+          </div>
+        </div>
+      `;
+      outputEl.innerHTML = html;
+      return;
+    }
+
     const now = Date.now();
     const initialRequest = now - 5000;
     const consent = {
