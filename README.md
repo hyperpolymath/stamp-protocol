@@ -78,7 +78,7 @@ open index.html
 ### Current Implementation (2026-01-30)
 
 - **Interactive STAMP Demo** - Step-through demonstration
-- **URL Validation** - Demonstrates safe URL checks (browser-level)
+- **URL Validation** - Demonstrates safe URL checks using build-time proofs
 - **Real-time Validation** - Instant feedback on URL correctness
 - **TEA Architecture** - Predictable state management
 

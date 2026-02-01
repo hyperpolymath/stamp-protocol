@@ -104,7 +104,7 @@ See STAMP in action with our live Telegram bot (demo flow):
 
 ### Demo Notes
 
-The browser demo performs structural checks (URL parsing + HTTPS) and simulates proof flow. Full proofs are part of the protocol draft.
+The browser demo uses build-time proof data for URL checks and simulates the consent proof flow. Full proofs are part of the protocol draft.
 
 ## Use Cases
 

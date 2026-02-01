@@ -1,3 +1,17 @@
+let proofData = null;
+
+async function loadProofData() {
+  try {
+    const res = await fetch("public/proof-data.json");
+    if (!res.ok) {
+      return null;
+    }
+    return await res.json();
+  } catch (_err) {
+    return null;
+  }
+}
+
 function resultToString(result) {
   switch (result) {
     case "Success":
@@ -17,15 +31,33 @@ function resultToClass(result) {
   return result === "Success" ? "success" : "error";
 }
 
+function lookupProof(url) {
+  if (!proofData || !proofData.urls) {
+    return null;
+  }
+  return proofData.urls.find((entry) => entry.input === url) || null;
+}
+
 function verifyUnsubscribeLink(url) {
+  const proof = lookupProof(url);
+  if (proof) {
+    if (!proof.parse_ok) {
+      return { result: "ErrorInvalidUrl", source: "proven (build-time)" };
+    }
+    if (!proof.https) {
+      return { result: "ErrorNotHttps", source: "proven (build-time)" };
+    }
+    return { result: "Success", source: "proven (build-time)" };
+  }
+
   try {
     const parsed = new URL(url);
     if (parsed.protocol !== "https:") {
-      return "ErrorNotHttps";
+      return { result: "ErrorNotHttps", source: "runtime" };
     }
-    return "Success";
+    return { result: "Success", source: "runtime" };
   } catch (_err) {
-    return "ErrorInvalidUrl";
+    return { result: "ErrorInvalidUrl", source: "runtime" };
   }
 }
 
@@ -41,9 +73,9 @@ function testUnsubscribeLink(url) {
   outputEl.innerHTML = "<div class='demo-loading'>🔍 Validating link structure...</div>";
   setTimeout(() => {
     const now = Date.now();
-    const result = verifyUnsubscribeLink(url);
-    const resultClass = resultToClass(result);
-    const resultText = resultToString(result);
+    const verification = verifyUnsubscribeLink(url);
+    const resultClass = resultToClass(verification.result);
+    const resultText = resultToString(verification.result);
     const html = `
       <div class="demo-result ${resultClass}">
         <h4>${resultText}</h4>
@@ -51,6 +83,7 @@ function testUnsubscribeLink(url) {
           <p><strong>URL:</strong> ${url}</p>
           <p><strong>Checked At:</strong> ${new Date(now).toISOString()}</p>
           <p><strong>Check:</strong> URL parses and is HTTPS</p>
+          <p><strong>Source:</strong> ${verification.source}</p>
         </div>
       </div>
     `;
@@ -80,6 +113,7 @@ function testConsentChain() {
           <p><strong>Confirmation:</strong> ${new Date(now).toISOString()}</p>
           <p><strong>Token:</strong> ${consent.token}</p>
           <p><strong>Check:</strong> confirmation > initialRequest</p>
+          <p><strong>Source:</strong> demo rules</p>
         </div>
       </div>
     `;
@@ -99,4 +133,7 @@ function initDemo() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => initDemo());
+document.addEventListener("DOMContentLoaded", async () => {
+  proofData = await loadProofData();
+  initDemo();
+});

@@ -1,0 +1,21 @@
+{
+  "generated_at": "2026-02-01T18:51:25.029Z",
+  "urls": [
+    {
+      "input": "https://example.com/unsubscribe?token=abc123",
+      "parse_ok": true,
+      "https": true
+    },
+    {
+      "input": "http://example.com/unsubscribe?token=abc123",
+      "parse_ok": true,
+      "https": false
+    },
+    {
+      "input": "not-a-url",
+      "parse_ok": false,
+      "https": false,
+      "error": "Invalid URL: Invalid URL: 'not-a-url'"
+    }
+  ]
+}
