@@ -16,31 +16,29 @@ Email marketing systems often fail to provide:
 - **Verifiable consent** - Subscribers can't prove they consented
 - **Unbreakable unsubscribe** - Links can break or be malicious
 - **Transparent tracking** - Users don't know what's being tracked
-- **Cryptographic proof** - No mathematical guarantees of consent state
+- **Verifiable proof** - No strong guarantees of consent state
 
 ## The Solution
 
-STAMP provides a **formally verified** consent management system:
+STAMP provides a **verifiable** consent management system design:
 
 ### Key Features
 
 1. **Proven URL Validation**
    - Uses `ProvenSafeUrl` from the proven library
-   - Mathematical guarantee URLs are well-formed
-   - No null pointer crashes possible
-   - Compile-time verification via Idris2
+   - URLs can be validated before sending
+   - Compile-time verification via Idris2 (where bindings are used)
 
-2. **Cryptographic Consent Proofs**
-   - Every consent action generates a proof
-   - Timestamped and cryptographically signed
+2. **Consent Proofs (Planned)**
+   - Define a proof format for consent events
+   - Timestamped and signed proofs (target)
    - Subscriber can verify their consent state
    - Marketer can prove compliance
 
-3. **Unbreakable Unsubscribe**
+3. **Verified Unsubscribe**
    - Links validated before generation
-   - No malformed URLs possible
-   - Always HTTPS (proven at type level)
-   - Rate-limiting and abuse protection
+   - HTTPS-only where enforced by validation
+   - Rate-limiting and abuse protection (planned)
 
 4. **Full Transparency**
    - Subscribers see all tracked data
@@ -63,22 +61,20 @@ All state transitions are **pure functions** with **no side effects**.
 The core URL validation is **formally verified** using Idris2 dependent types:
 
 - **No runtime URL parsing errors** - Proven impossible
-- **Balanced HTML tags** - Checked at compile time
-- **Memory safety** - No buffer overflows possible
 - **Type safety** - Guaranteed correct operations
 
 See the [proven library](https://github.com/hyperpolymath/proven) for details.
 
 ## Try It Out
 
-1. Visit the [interactive demo](/demo)
+1. Visit the homepage demo
 2. See URL validation in action
 3. Explore the consent flow
-4. View cryptographic proofs
+4. Review planned proof flow
 
 ## Learn More
 
-- [STAMP Specification](https://github.com/hyperpolymath/stamp-protocol)
+- [STAMP Protocol Draft](https://github.com/hyperpolymath/stamp-protocol/blob/main/docs/PROTOCOL.md)
 - [ReScript TEA](https://github.com/hyperpolymath/rescript-tea)
 - [Proven Library](https://github.com/hyperpolymath/proven)
 - [SafeDOM Mounter](https://github.com/hyperpolymath/rescript-dom-mounter)

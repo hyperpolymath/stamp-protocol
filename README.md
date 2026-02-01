@@ -2,12 +2,12 @@
 
 [![Idris Inside](https://img.shields.io/badge/Idris-Inside-5E5086?style=flat&logo=idris&logoColor=white)](https://github.com/hyperpolymath/proven)
 
-Reference site and interactive demo for the STAMP Protocol (Subscriber Tracking with Attribution and Mathematically Proven consent).
+Reference site and interactive demo for STAMP Protocol concepts (Subscriber Tracking with Attribution and Mathematically Proven consent).
 
 ## What It Does
 
 - Demonstrates STAMP flows end-to-end.
-- Validates unsubscribe URLs with formally verified logic.
+- Shows how verifiable consent and unsubscribe flows could work.
 - Ships a clean, static front end for easy hosting.
 
 ## Where It Is Going
@@ -15,6 +15,11 @@ Reference site and interactive demo for the STAMP Protocol (Subscriber Tracking 
 - Expand the demo to cover more protocol paths.
 - Add integration examples for production systems.
 - Improve visualization and accessibility of consent flows.
+- Publish a full protocol spec with test vectors.
+
+## Protocol Draft
+
+See `docs/PROTOCOL.md` for the draft protocol definition and current scope.
 
 ## Architecture
 
@@ -25,12 +30,12 @@ Reference site and interactive demo for the STAMP Protocol (Subscriber Tracking 
 
 ### Formally Verified Components
 
-This application uses **proven** for unbreakable URL validation:
+This application uses **proven** for URL validation:
 
 - **ProvenSafeUrl** - URL parsing with mathematical proofs of correctness
 - **ProvenResult** - Type-safe error handling
 - **Guarantees**:
-  - Invalid URLs cannot compile
+  - Invalid URLs cannot compile (for code using the proven bindings)
   - No runtime URL parsing errors
   - Proven security properties (no XSS via URLs)
 
@@ -72,7 +77,7 @@ open index.html
 ### Current Implementation (2026-01-30)
 
 - **Interactive STAMP Demo** - Step-through demonstration
-- **Proven URL Validation** - Formally verified unsubscribe links
+- **URL Validation** - Demonstrates safe URL checks
 - **Real-time Validation** - Instant feedback on URL correctness
 - **TEA Architecture** - Predictable state management
 
