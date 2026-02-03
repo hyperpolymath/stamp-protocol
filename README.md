@@ -93,7 +93,7 @@ open index.html
 
 - ✅ ReScript compilation with Deno
 - ✅ proven integration for URL validation
-- ✅ StampApp.res with formal verification
+- ✅ AvowApp.res with formal verification
 - ✅ Security hardening (.well-known/, headers, DNS)
 - ⏳ Full TEA integration (basic render function)
 - ⏳ Interactive UI with DOM mounting
