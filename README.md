@@ -1,190 +1,80 @@
-# AVOW Protocol
+= AVOW Protocol: Attributed Verification of Origin Willingness
+:author: Your Project Team
+:revdate: 2026-02-03
+:toc: macro
+:icons: font
+:stem: latex
 
-[![Idris Inside](https://img.shields.io/badge/Idris-Inside-5E5086?style=flat&logo=idris&logoColor=white)](https://github.com/hyperpolymath/proven)
-![Protocol Draft](https://img.shields.io/badge/Protocol-Draft-blue)
+image:https://img.shields.io/badge/Idris-Inside-5E5086?style=flat&logo=idris&logoColor=white[Idris Inside, link="https://github.com/hyperpolymath/proven"]
+image:https://img.shields.io/badge/Protocol-Draft-blue[Protocol Draft]
 
-Reference site and interactive demo for AVOW Protocol concepts (Subscriber Tracking with Attribution and Mathematically Proven consent).
+Reference site and interactive demo for the **AVOW Protocol**—a high-assurance standard for secure subscriber attribution and spam prevention.
 
-AVOW: Attributed Verification for Opt-in Willingness
-The AVOW Protocol is a high-assurance framework for managing the lifecycle of digital consent. By combining The Elm Architecture (TEA) with formal mathematical proofs, it ensures that a user’s willingness to participate is never assumed — it is always verified.
+toc::[]
 
-## What It Does
+== Introduction
 
-- Demonstrates AVOW flows end-to-end.
-- Shows how verifiable consent and unsubscribe flows could work (demo-level checks).
-- Ships a clean, static front end for easy hosting.
+The **AVOW Protocol** (**A**ttributed **V**erification of **O**rigin **W**illingness) is designed to solve the "Spam vs. Ham" problem at the architectural level. Unlike traditional opt-in systems that rely on easily spoofed headers, AVOW uses formal mathematical proofs to ensure that every message is both **attributed** to a known source and **willed** by the recipient.
 
-## Where It Is Going
+== Core Concepts
 
-- Expand the demo to cover more protocol paths.
-- Add integration examples for production systems.
-- Improve visualization and accessibility of consent flows.
-- Publish a full protocol spec with test vectors.
+The protocol moves beyond simple "Opt-in" logic by verifying the relationship between the message source and the receiver's intent.
 
-## Protocol Draft
+=== 1. Attributed Origin
+Every message or subscription event must carry a cryptographic proof of its source. This eliminates "ghost" subscriptions and sender spoofing.
 
-See `docs/PROTOCOL.md` for the draft protocol definition and current scope.
+=== 2. Origin Willingness
+Willingness is not a static state but a verified property of the communication channel. A message is classified as **Ham** only if the recipient has an active, proven "willingness token" for that specific **Origin**.
 
-## Architecture
+=== 3. The Spam-Ham Determinant
+A communication is rejected as **Spam** if:
+* The **Origin** cannot be cryptographically attributed.
+* The **Willingness** proof has expired or was never issued.
+* The state transition violates the formally verified workflow.
 
-- **ReScript** - Type-safe frontend compilation to JavaScript
-- **Deno** - Build and task runner
-- **proven** - Idris2 formally verified library for URL validation
-- **TEA** - The Elm Architecture pattern for state management
+[Image of a logical gate diagram where incoming messages are filtered based on origin attribution and willingness proofs]
 
-### Formally Verified Components
+== Formal Logic (The AVOW Proof)
 
-This application uses **proven** for URL validation:
+Using the `proven` library (Idris2), we define the validity of a communication state through the following theorem:
 
-- **ProvenSafeUrl** - URL parsing with mathematical proofs of correctness
-- **ProvenResult** - Type-safe error handling
-- **Guarantees**:
-  - Invalid URLs cannot compile (for code using the proven bindings)
-  - No runtime URL parsing errors
-  - Proven security properties (no XSS via URLs)
+[stem]
+++++
+V(m) \iff A(o) \land W(r, o)
+++++
 
-## Development
+Where:
+* $V(m)$ is the validity of the message.
+* $A(o)$ is the successful **Attribution** of the Origin $o$.
+* $W(r, o)$ is the **Willingness** of the recipient $r$ to accept $o$.
 
-### Prerequisites
+== Technical Stack
 
-- [Deno](https://deno.com/) v2.0+
-- ReScript ^12.1.0 (auto-installed via Deno)
+* **Logic Engine:** ReScript 12 + TEA (The Elm Architecture)
+* **Verification:** `proven` (Idris2) for structural integrity of state and URLs.
+* **Security:** Enforced HTTPS and Content Security Policies (CSP) via `.well-known/` standards.
 
-### Build
+== Project Structure
 
-```bash
-# Build ReScript to JavaScript
-deno task build
-
-# Watch mode for development
-deno task watch
-
-# Clean build artifacts
-deno task clean
-```
-
-### Local Development
-
-```bash
-# Serve with any static server
-deno run -A jsr:@std/http/file-server .
-
-# Or use Python
-python3 -m http.server 8000
-
-# Or open directly
-open index.html
-```
-
-## Features
-
-### Current Implementation (2026-01-30)
-
-- **Interactive AVOW Demo** - Step-through demonstration
-- **URL Validation** - Demonstrates safe URL checks using build-time proofs
-- **Real-time Validation** - Instant feedback on URL correctness
-- **TEA Architecture** - Predictable state management
-
-### Security Features
-
-- **HTTPS-only** - Enforced for all unsubscribe URLs
-- **Proven Validation** - Mathematical proofs prevent malformed URLs
-- **No XSS** - Formally verified URL handling
-- **CSP Headers** - Content Security Policy (see .well-known/)
-
-## Project Status
-
-- ✅ ReScript compilation with Deno
-- ✅ proven integration for URL validation
-- ✅ AvowApp.res with formal verification
-- ✅ Security hardening (.well-known/, headers, DNS)
-- ⏳ Full TEA integration (basic render function)
-- ⏳ Interactive UI with DOM mounting
-- ⏳ Visual consent flow diagram
-- ⏳ API integration examples
-
-## Deploy to Cloudflare Pages
-
-### Web UI Method
-
-1. Go to https://pages.cloudflare.com/
-2. Connect `avow-protocol` repository
-3. Build settings:
-   - Framework: **None** (pre-built ReScript)
-   - Build command: `deno task build`
-   - Output directory: `/`
-4. Custom domain: `avow-protocol.org`
-
-### CLI Method
-
-```bash
-# Build first
-deno task build
-
-# Deploy with Wrangler
-wrangler pages deploy . --project-name=avow-protocol
-```
-
-## Domain & DNS Setup
-
-### Cloudflare DNS Records
-
-```
-CNAME @ avow-protocol.pages.dev (Proxied)
-CAA   @ 0 issue "letsencrypt.org"
-CAA   @ 0 issue "pki.goog"
-TXT   @ "v=spf1 -all"
-```
-
-### Security Headers (Cloudflare)
-
-See `.well-known/security.txt` for full configuration.
-
-- HSTS max-age=31536000
-- CSP: default-src 'self'
-- X-Frame-Options: DENY
-- COEP, COOP, CORP headers
-
-## File Structure
-
-```
+[source,text]
+----
 avow-protocol/
 ├── src/
-│   ├── AvowApp.res           # Main TEA application
-│   ├── ProvenResult.res       # Result type for error handling
-│   ├── ProvenSafeUrl.res      # Proven URL validation
-│   └── Tea.res                # Minimal TEA runtime
-├── deno.json                  # Deno configuration & tasks
-├── rescript.json              # ReScript compiler config
-├── index.html                 # HTML entry point
-├── style.css                  # Styles
-└── .well-known/               # Security & standards
-    ├── security.txt
-    └── change-password
-```
+│   ├── AvowApp.res         # Core Logic & State Machine
+│   ├── OriginProof.res     # Attribution logic
+│   └── ProvenSafeUrl.res   # Idris2-backed URL proofs
+├── docs/
+│   └── PROTOCOL.adoc       # Full mathematical specification
+└── .well-known/            # RFC 9116 & Protocol discovery
+----
 
-## Performance
+== Implementation Status
 
-- **Target: 100/100 Lighthouse**
-- Zero external dependencies (after build)
-- Compiled ReScript (no runtime transpilation)
-- Vanilla CSS (no framework bloat)
-- Mobile-first responsive design
+* [*] **Origin Attribution:** Cryptographic binding of senders.
+* [*] **Formal URL Validation:** Zero-runtime-error URL parsing.
+* [ ] **Willingness State Machine:** Full TEA implementation of consent lifecycles.
+* [ ] **Spam/Ham Heuristics:** Proof-based filtering demo.
 
-## SEO & Standards
-
-- ✅ Semantic HTML5
-- ✅ Meta descriptions
-- ✅ Open Graph tags
-- ✅ RFC 9116 security.txt
-- ✅ Structured data (Schema.org)
-
-## License
+== License
 
 PMPL-1.0-or-later
-
-## Related Projects
-
-- [rescript-tea](https://github.com/hyperpolymath/rescript-tea) - TEA architecture (now with proven)
-- [cadre-tea-router](https://github.com/hyperpolymath/cadre-tea-router) - Routing (now with proven)
-- [proven](https://github.com/hyperpolymath/proven) - Idris2 formally verified library
