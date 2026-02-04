@@ -1,0 +1,63 @@
+# SPDX-License-Identifier: PMPL-1.0-or-later
+# Cloudflare Workers/Pages configuration for AVOW Protocol
+
+name = "avow-protocol"
+compatibility_date = "2026-02-04"
+
+# Pages configuration
+pages_build_output_dir = "."
+
+[build]
+command = "deno task build"
+cwd = ""
+watch_dirs = ["src"]
+
+[build.upload]
+format = "service-worker"
+
+# Environment variables
+[vars]
+ENVIRONMENT = "production"
+
+# Custom domains
+[[pages.custom_domains]]
+domain = "avow-protocol.org"
+
+[[pages.custom_domains]]
+domain = "www.avow-protocol.org"
+
+# Security headers via Workers
+[env.production]
+name = "avow-protocol-production"
+route = "avow-protocol.org/*"
+routes = [
+  { pattern = "avow-protocol.org/*", zone_name = "avow-protocol.org" },
+  { pattern = "www.avow-protocol.org/*", zone_name = "avow-protocol.org" }
+]
+
+# Enable analytics
+[observability]
+enabled = true
+
+# Compatibility flags
+compatibility_flags = ["nodejs_compat"]
+
+# Durable Objects (for future use)
+# [[durable_objects.bindings]]
+# name = "AVOW_STATE"
+# class_name = "AvowState"
+
+# KV namespaces (for future use)
+# [[kv_namespaces]]
+# binding = "AVOW_CACHE"
+# id = "your-kv-namespace-id"
+
+# R2 buckets (for future use)
+# [[r2_buckets]]
+# binding = "AVOW_STORAGE"
+# bucket_name = "avow-protocol-assets"
+
+# Service bindings (for future use)
+# [[services]]
+# binding = "AVOW_API"
+# service = "avow-api-worker"
