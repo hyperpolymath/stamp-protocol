@@ -2,21 +2,11 @@
   "name": "stamp-telegram-bot",
   "version": "1.0.0",
   "sources": [
-    {
-      "dir": "src",
-      "subdirs": true
-    }
+    {"dir": "src", "subdirs": true},
+    {"dir": ".", "subdirs": false, "type": "dev"}
   ],
-  "package-specs": [
-    {
-      "module": "es6",
-      "in-source": true
-    }
-  ],
+  "package-specs": [{"module": "es6", "in-source": true}],
   "suffix": ".res.js",
-  "bs-dependencies": [],
-  "warnings": {
-    "error": "+101"
-  },
-  "bsc-flags": ["-open Belt"]
+  "dependencies": ["@rescript/core"],
+  "warnings": {"error": "+101"}
 }

@@ -2,25 +2,11 @@
   "name": "avow-protocol",
   "version": "1.0.0",
   "sources": [
-    {
-      "dir": "src",
-      "subdirs": true
-    }
+    {"dir": "src", "subdirs": true},
+    {"dir": "scripts", "subdirs": true, "type": "dev"}
   ],
-  "package-specs": [
-    {
-      "module": "es6",
-      "in-source": true
-    }
-  ],
+  "package-specs": [{"module": "es6", "in-source": true}],
   "suffix": ".res.js",
-  "bs-dependencies": [],
-  "warnings": {
-    "error": "+101"
-  },
-  "bsc-flags": ["-open Belt"],
-  "comments": [
-    "TEA, router, and DOM mounter dependencies will be added once rescript-tea is fully integrated",
-    "Currently building core architecture with proven library calls"
-  ]
+  "dependencies": ["@rescript/core"],
+  "warnings": {"error": "+101"}
 }

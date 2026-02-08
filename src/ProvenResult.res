@@ -1,9 +1,7 @@
-// SPDX-License-Identifier: AGPL-3.0-or-later
+// SPDX-License-Identifier: PMPL-1.0-or-later
 // SPDX-FileCopyrightText: 2025 Jonathan D.A. Jewell
-/**
- * Result type for proven bindings
- * Matches the JavaScript { ok: boolean, value?: T, error?: string } pattern
- */
+// Result type for proven bindings
+// Matches the JavaScript { ok: boolean, value?: T, error?: string } pattern
 
 type t<'value, 'error> = result<'value, 'error>
 

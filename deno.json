@@ -8,7 +8,7 @@
     "k9:export": "nickel export config/metadata.k9.ncl > metadata.json",
     "a2ml:render": "deno run -A --config ../a2ml/prototype/rescript/deno.json ../a2ml/prototype/rescript/src/Cli.bs.js render content/about.a2ml --out public/about.html",
     "a2ml:validate": "cd ../a2ml && just cli validate ../avow-protocol/content/*.a2ml",
-    "proofs:generate": "deno run -A scripts/generate_proof.ts",
+    "proofs:generate": "deno run -A scripts/GenerateProof.res.js",
     "sync:6scm": "bash scripts/sync-6scm.sh",
     "check:6scm": "bash scripts/check-6scm.sh",
     "serve": "deno run -A jsr:@std/http/file-server ."
